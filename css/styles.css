@@ -43,7 +43,12 @@ header h2 {
 	margin-bottom: 25px;
 }
 
-
+.card-hidden, .button-hidden {
+  display: none!important;
+}
+.card-visible{
+  display: block;
+}
 
 .student-search {
   display: flex;
