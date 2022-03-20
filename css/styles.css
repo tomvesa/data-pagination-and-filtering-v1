@@ -43,7 +43,7 @@ header h2 {
 	margin-bottom: 25px;
 }
 
-.card-hidden, .button-hidden {
+.card-hidden, .button-hidden, .message-hidden {
   display: none!important;
 }
 .card-visible{

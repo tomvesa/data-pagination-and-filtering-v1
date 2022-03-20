@@ -71,12 +71,7 @@ function searchByName(searchName) {
    return searchResult;
 }
 
-/**
- * execution of the app
- * 1) crete cards for all items in data Array
- *       - get its page number
- *       - add class of card-hidden to all elems as a default
- */
+
 
 const studentList = document.getElementsByClassName('student-list')[0];
 // 
@@ -104,6 +99,12 @@ data.forEach((item, index) => {
 // display only Page-1 cards when page loads
 window.addEventListener('load', displayPage1Cards);
 
+// render No message element and hide it as default
+const noResultMessage = document.createElement('H3');
+      noResultMessage.textContent = `No result found`;
+      noResultMessage.classList.add('message-hidden');
+   studentList.append(noResultMessage);
+
 // reder pagination buttons
 const buttonsBox = document.getElementsByClassName('link-list')[0];
 const getPagesNum = countNumberOFPages(data, 9 ).count;
@@ -122,14 +123,14 @@ buttonsBox.addEventListener(`click`, e => {
 
       // first select not hidden cards and hide them
       const allCards = document.querySelectorAll(`.student-item:not(.card-hidden)`);
-            console.log(allCards)
+            //console.log(allCards)
             for (card of allCards){
                card.classList.add(`card-hidden`) ;
 
       // find cards with page num which is equal to button number and display them
       const buttonValue = e.target.dataset.value;         
       const selectedCardsByButton = document.querySelectorAll(`.student-item[data-page="${buttonValue}"`);
-            console.log(selectedCardsByButton);
+            //console.log(selectedCardsByButton);
             for (card of selectedCardsByButton) {card.classList.remove('card-hidden')};
    };
 }});
@@ -141,7 +142,7 @@ buttonsBox.addEventListener(`click`, e => {
 const searchBar = document.createElement('div');   
       searchBar.innerHTML = ` <label for="search" class="student-search">
                                  <span>Search by name</span>
-                                 <input id="search" placeholder="Search by name...">
+                                 <input type="text" id="search" placeholder="Search by name...">
                                  
                               </label>`
 const headerEl = document.getElementsByClassName('header')[0];
@@ -161,9 +162,10 @@ searchInput.addEventListener('keyup', e => {
                card.dataset.page = "";
             };
 
-   // get Array of matching cards abd get its card index and page num        
+   // get Array of matching cards and get its card index and page num        
    const searchData = searchByName(searchFor);
-          console.log(searchData);
+
+          //console.log(`lenght : ${searchData.length}`);
             for (const [i, card] of searchData.entries()){
               // card.classList.remove('card-hidden')
                card.dataset.index = i;
@@ -171,20 +173,20 @@ searchInput.addEventListener('keyup', e => {
             };
          
    const getNumberOfPages = countNumberOFPages(searchData,  9).count;
-            console.log(getNumberOfPages);
+            //console.log(getNumberOfPages);
    
    // display only required page buttons         
    const buttons = document.querySelectorAll('.link-list button');
          for(button of buttons){
             if(button.dataset.value > getNumberOfPages){
-               console.log(button);
-               console.log( button.dataset.value > getNumberOfPages);
+               //console.log(button);
+               //console.log( button.dataset.value > getNumberOfPages);
                button.parentElement.classList.add('button-hidden');
             }else{
                button.parentElement.classList.remove('button-hidden')
             }
          }         
-     
+ 
  
         displayPage1Cards();
         // remove active from buttons and make 1st one active
@@ -195,27 +197,22 @@ searchInput.addEventListener('keyup', e => {
            buttons[0].classList.add('active');    
 
     });
-/*
-For assistance:
-   Check out the "Project Resources" section of the Instructions tab: https://teamtreehouse.com/projects/data-pagination-and-filtering#instructions
-   Reach out in your Slack community: https://treehouse-fsjs-102.slack.com/app_redirect?channel=unit-2
-*/
 
+    // display message No result if no result is found
+    searchInput.addEventListener('keyup', e => {
+      const searchVal = searchInput.value;
+      const isMessageHidden = noResultMessage.classList.contains('message-hidden');
 
+      if(searchVal){
+         const listedArr = searchByName(searchVal.toLowerCase());
+         const foundItems = listedArr.length;
+            //console.log(`found: ${foundItems}`);
+         if(foundItems === 0){
+            noResultMessage.classList.remove('message-hidden');
+         } else {
+            noResultMessage.classList.add('message-hidden');
+         }
+      }
+    });
 
-/*
-Create the `showPage` function
-This function will create and insert/append the elements needed to display a "page" of nine students
-*/
-
-
-
-/*
-Create the `addPagination` function
-This function will create and insert/append the elements needed for the pagination buttons
-*/
-
-
-
-// Call functions
 
