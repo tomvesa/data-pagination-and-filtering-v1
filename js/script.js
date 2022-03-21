@@ -143,7 +143,7 @@ const searchBar = document.createElement('div');
       searchBar.innerHTML = ` <label for="search" class="student-search">
                                  <span>Search by name</span>
                                  <input type="text" id="search" placeholder="Search by name...">
-                                 
+                                  <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
                               </label>`
 const headerEl = document.getElementsByClassName('header')[0];
       headerEl.appendChild(searchBar);   
@@ -206,7 +206,7 @@ searchInput.addEventListener('keyup', e => {
       if(searchVal){
          const listedArr = searchByName(searchVal.toLowerCase());
          const foundItems = listedArr.length;
-            //console.log(`found: ${foundItems}`);
+            // console.log(`found: ${foundItems}`);
          if(foundItems === 0){
             noResultMessage.classList.remove('message-hidden');
          } else {
